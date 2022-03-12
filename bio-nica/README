@@ -1,4 +1,4 @@
-Implementation quadratic solver in C specefic for bio-nica
+Implementation of quadratic solver in C specefic for bio-nica
 
 Minimize 1/2 x^T G x - a^T x
 
