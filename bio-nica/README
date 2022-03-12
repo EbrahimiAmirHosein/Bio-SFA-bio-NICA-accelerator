@@ -1,0 +1,7 @@
+Minimize 1/2 x^T G x - a^T x
+
+Subject to C.T x >= b
+
+Refrences:
+1.  D. Goldfarb and A. Idnani (1983). A numerically stable dual method for solving strictly convex quadratic programs. Mathematical Programming, 27, 1-33.
+2.  https://github.com/quadprog/quadprog
