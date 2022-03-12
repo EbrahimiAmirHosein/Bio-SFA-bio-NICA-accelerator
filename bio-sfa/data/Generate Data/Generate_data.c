@@ -9,7 +9,7 @@ double randfrom(double min, double max)
 {
     double range = (max - min);
     double div = RAND_MAX / range;
-    srand ( time(NULL) );
+    srand(time(NULL));
     return min + (rand() / div);
 }
 
@@ -40,7 +40,6 @@ int main(void)
     // monomial expansion order
     int order = 2;
 
-    
     // sum_sine
     int Ts = T + m - 1;
     int n_sines = 6;
@@ -138,7 +137,7 @@ int main(void)
         }
     }
 
-    //logisticmap
+    // logisticmap
 
     static double Series[1][100003];
     for (size_t i = 0; i < Ts; i++)
@@ -205,7 +204,7 @@ int main(void)
         }
     }
 
-    static double signal_T[4][100000]; //signal [T][4]
+    static double signal_T[4][100000]; // signal [T][4]
 
     for (size_t i = 0; i < T; i++)
     {
@@ -224,7 +223,7 @@ int main(void)
     {
         mean_signalT_Ax1[i][0] = 0;
     }
-    //mean.axis1
+    // mean.axis1
     for (size_t i = 0; i < 4; i++)
     {
         for (size_t j = 0; j < T; j++)
@@ -269,9 +268,9 @@ int main(void)
     }
 
     /**
-     * @brief 
+     * @brief
      *      (singla.T - mean.axis1) * (singla.T - mean.axis1).T ->
-     
+
             (singla.T - mean.axis1) = (4,100000)
             (singla.T - mean.axis1).T = (100000,4)
             outcome = (4,4)
@@ -290,20 +289,7 @@ int main(void)
             Cov_signal_T[i][j] /= (T - 1);
         }
     }
-    /**
-     * @brief Convert Cov to `la.inv(la.sqrtm(np.cov(signal.T)))` in python 
-     *          
-     *          Available in checkbook
-     * 
-     */
-    // FILE *f = fopen("Cov.txt", "wb");
-    // for (size_t i = 0; i < 4; i++)
-    // {
-    //     for (size_t j = 0; j < 4; j++)
-    //     {
-    //     fprintf(f, "%f%s",Cov_signal_T[i][j],(","));
-    //     }
-    // }
+
 
     FILE *invcov = fopen("inv_sqrtm.txt", "r");
     char *line = NULL;
@@ -352,7 +338,7 @@ int main(void)
         }
     }
 
-    //Computing invConvSig trasnpose
+    // Computing invConvSig trasnpose
     static double invConvSig_T[4][100000];
     for (size_t i = 0; i < T; i++)
     {
@@ -392,7 +378,6 @@ int main(void)
         X[m + 8][t] = signal[t][3] * signal[t][2];
         X[m + 9][t] = signal[t][3] * signal[t][3];
     }
-    
 
     // saving x to check if its okay in check-book
     FILE *f1 = fopen("Out/X.txt", "wb");
@@ -400,10 +385,9 @@ int main(void)
     {
         for (size_t j = 0; j < T; j++)
         {
-        fprintf(f1, "%f%s",X[i][j],(","));
+            fprintf(f1, "%f%s", X[i][j], (","));
         }
-    } 
-
+    }
 
     double X_mean[k][1];
     for (size_t i = 0; i < k; i++)
@@ -411,7 +395,7 @@ int main(void)
         X_mean[i][0] = 0;
     }
 
-    //mean.axis1
+    // mean.axis1
     for (size_t i = 0; i < k; i++)
     {
         for (size_t j = 0; j < T; j++)
@@ -444,8 +428,8 @@ int main(void)
     {
         for (size_t j = 0; j < 100000; j++)
         {
-        fprintf(f, "%f%s",centered_X[i][j],(",\n"));
+            fprintf(f, "%f%s", centered_X[i][j], (",\n"));
         }
     }
     return 0;
-    }
+}
