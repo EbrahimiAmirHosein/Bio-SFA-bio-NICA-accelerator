@@ -132,7 +132,7 @@ double calculate_vsmall()
 int solve_qp(double G[n * n], double av[n],
              double xv[n])
 {
-    #pragma HLS pipeline II=1
+    
     // int factorized = 0 ;
     // int n = 3;
     // int q = n;
