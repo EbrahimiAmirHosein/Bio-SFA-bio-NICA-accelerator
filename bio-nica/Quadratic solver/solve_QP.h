@@ -405,7 +405,6 @@ int solve_qp(double G[n * n], double av[n],
 
             // Remove constraint idel from the active set.
 
-            // qr_delete(n, nact, idel, J, R);
             for (int i = idel; i < nact; i++)
             {
                 uv[i - 1] = uv[i];
@@ -428,6 +427,5 @@ int solve_qp(double G[n * n], double av[n],
         ++(nact);
         uv[nact - 1] = u;
         iact[nact - 1] = iadd;
-        // qr_insert(n, nact, dv, J, R);
     }
 }
