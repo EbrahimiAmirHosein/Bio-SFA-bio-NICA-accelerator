@@ -116,10 +116,23 @@ double calculate_vsmall()
 #define meq 0
 #define factorized 0
 
-// double obj = 0 ;
+/**
+ * @brief 
+ * Minimize 1/2 x.T G x - av.T x Subject to C.T x >= b
+ * 
+
+ * @param G input 
+ * @param av input
+ * @param xv inout ->   solution x to the minimisation problem
+ * 
+ * @param C is specialized hardcoded identity matrix (3x3)
+ * @param b is specialized hardcoded zero matrix (3x1)
+ * @return - automaticly updated xv solution 
+ */
 int solve_qp(double G[n * n], double av[n],
              double xv[n])
 {
+    #pragma HLS pipeline II=1
     // int factorized = 0 ;
     // int n = 3;
     // int q = n;
