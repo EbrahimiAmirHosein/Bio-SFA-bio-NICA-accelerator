@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-void axpy(int n, double a, double x[], double y[])
+void axpy(int n, float a, float x[], float y[])
 {
     for (int i = 0; i < n; i++)
     {
@@ -10,9 +10,9 @@ void axpy(int n, double a, double x[], double y[])
     }
 }
 
-double dot(int n, double x[], double y[])
+float dot(int n, float x[], float y[])
 {
-    double result = 0.0;
+    float result = 0.0;
     for (int i = 0; i < n; i++)
     {
         result += x[i] * y[i];
@@ -20,7 +20,7 @@ double dot(int n, double x[], double y[])
     return result;
 }
 
-void scal(int n, double a, double x[])
+void scal(int n, float a, float x[])
 {
     for (int i = 0; i < n; i++)
     {
@@ -32,7 +32,7 @@ void scal(int n, double a, double x[])
  * Solve a * x = b, where a is upper triangular.
  * The solution is written into b.
  */
-void triangular_solve(int n, double a[], double b[])
+void triangular_solve(int n, float a[], float b[])
 {
     for (int k = n - 1; k >= 0; k--)
     {
@@ -45,7 +45,7 @@ void triangular_solve(int n, double a[], double b[])
  * Solve transpose(a) * x = b, where a is upper triangular.
  * The solution is written into b.
  */
-void triangular_solve_transpose(int n, double a[], double b[])
+void triangular_solve_transpose(int n, float a[], float b[])
 {
     for (int k = 0; k < n; k++)
     {
@@ -58,7 +58,7 @@ void triangular_solve_transpose(int n, double a[], double b[])
  * Invert a, where a is upper triangular.
  * The inverse is written into a.
  */
-void triangular_invert(int n, double a[])
+void triangular_invert(int n, float a[])
 {
     for (int k = 0; k < n; k++)
     {
@@ -79,7 +79,7 @@ void triangular_invert(int n, double a[])
  * Returns: 0 if successful;
  *          j>0 if the leading jth minor of a is not positive definite.
  */
-int cholesky(int n, double a[])
+int cholesky(int n, float a[])
 {
     for (int j = 0; j < n; j++)
     {
@@ -89,7 +89,7 @@ int cholesky(int n, double a[])
                 (a[k + j * n] - dot(k, &a[k * n], &a[j * n])) / a[k + k * n];
         }
 
-        double s = a[j + j * n] - dot(j, &a[j * n], &a[j * n]);
+        float s = a[j + j * n] - dot(j, &a[j * n], &a[j * n]);
         if (s <= 0.0)
         {
             return j + 1;
@@ -101,7 +101,7 @@ int cholesky(int n, double a[])
     return 0;
 }
 
-double calculate_vsmall()
+float calculate_vsmall()
 {
     double vsmall = 1e-60;
     do
@@ -129,16 +129,16 @@ double calculate_vsmall()
  * @param b is specialized hardcoded zero matrix (3x1)
  * @return - automaticly updated xv solution 
  */
-int solve_qp(double G[n * n], double av[n],
-             double xv[n])
+int solve_qp(float G[n * n], float av[n],
+             float xv[n])
 {
-    
+    // #pragma HLS pipeline II=1
     // int factorized = 0 ;
     // int n = 3;
     // int q = n;
     // int meq = 0;
     //----------------------
-    double C[9];
+    float C[9];
     C[0] = 1;
     C[1] = 0;
     C[2] = 0;
@@ -149,14 +149,14 @@ int solve_qp(double G[n * n], double av[n],
     C[7] = 0;
     C[8] = 1;
     //----------------------
-    double lagr[3];
+    float lagr[3];
     lagr[0] = 0;
     lagr[1] = 0;
     lagr[2] = 0;
     //----------------------
-    double obj = 0;
+    float obj = 0;
     //----------------------
-    double bv[3];
+    float bv[3];
     bv[0] = 0;
     bv[1] = 0;
     bv[2] = 0;
@@ -172,25 +172,27 @@ int solve_qp(double G[n * n], double av[n],
     //----------------------
     int nact = 0;
     //----------------------
-    double work[24];
+    float work[24];
+
+
     for (size_t i = 0; i < 24; i++)
     {
         work[i] = 0;
     }
     //----------------------
 
-    double vsmall = calculate_vsmall();
+    float vsmall = calculate_vsmall();
 
     int pIterFull = iter[0];
     int pIterPartial = iter[1];
     int r = n <= q ? n : q;
-    double *dv = work;
-    double *zv = dv + n;
-    double *rv = zv + n;
-    double *uv = rv + r;
-    double *R = uv + r;
-    double *sv = R + r * (r + 1) / 2;
-    double *nbv = sv + q;
+    float *dv = work;
+    float *zv = dv + n;
+    float *rv = zv + n;
+    float *uv = rv + r;
+    float *R = uv + r;
+    float *sv = R + r * (r + 1) / 2;
+    float *nbv = sv + q;
     int work_length = n + n + r + r + r * (r + 1) / 2 + q + q;
 
     for (int i = 0; i < work_length; i++)
@@ -224,7 +226,7 @@ int solve_qp(double G[n * n], double av[n],
         triangular_invert(n, G);              // now G contains L^-T
     }
 
-    double *J = G;
+    float *J = G;
 
     // Set the lower triangle of J to zero.
 
@@ -265,7 +267,7 @@ int solve_qp(double G[n * n], double av[n],
 
         for (int i = 0; i < q; i++)
         {
-            double temp = dot(n, xv, &C[i * n]) - bv[i];
+            float temp = dot(n, xv, &C[i * n]) - bv[i];
             sv[i] = fabs(temp) < vsmall ? 0. : temp;
         }
         // Force the slack variables to zero for constraints in the active set,
@@ -280,7 +282,7 @@ int solve_qp(double G[n * n], double av[n],
         // The index of the constraint to add is stored in iadd.
 
         int iadd = 0;
-        double max_violation = 0.;
+        float max_violation = 0.;
         for (int i = 0; i < q; i++)
         {
             if (sv[i] < -max_violation * nbv[i])
@@ -306,9 +308,9 @@ int solve_qp(double G[n * n], double av[n],
             return 0;
         }
 
-        double slack = sv[iadd - 1];
-        double reverse_step = slack > 0.;
-        double u = 0;
+        float slack = sv[iadd - 1];
+        float reverse_step = slack > 0.;
+        float u = 0;
 
         for (;; (pIterPartial)++)
         {
@@ -348,12 +350,12 @@ int solve_qp(double G[n * n], double av[n],
             // Store in idel the index of the constraint to remove from the active set, if we get that far.
 
             int t1inf = 1, idel;
-            double t1;
+            float t1;
             for (int i = 0; i < nact; i++)
             {
                 if (iact[i] > meq && ((!reverse_step && rv[i] > 0.) || (reverse_step && rv[i] < 0.)))
                 {
-                    double temp = uv[i] / fabs(rv[i]);
+                    float temp = uv[i] / fabs(rv[i]);
                     if (t1inf || temp < t1)
                     {
                         t1inf = 0;
@@ -367,7 +369,7 @@ int solve_qp(double G[n * n], double av[n],
             // Store in ztn the rate at which the slack variable is increased. This is used to update the objective value below.
 
             int t2inf = fabs(dot(n, zv, zv)) <= vsmall;
-            double t2, ztn;
+            float t2, ztn;
             if (!t2inf)
             {
                 ztn = dot(n, zv, &C[(iadd - 1) * n]);
@@ -382,8 +384,8 @@ int solve_qp(double G[n * n], double av[n],
 
             // We will take a full step if t2 <= t1.
             int full_step = !t2inf && (t1inf || t1 >= t2);
-            double step_length = full_step ? t2 : t1;
-            double step = reverse_step ? -step_length : step_length;
+            float step_length = full_step ? t2 : t1;
+            float step = reverse_step ? -step_length : step_length;
 
             if (!t2inf)
             {
@@ -405,6 +407,7 @@ int solve_qp(double G[n * n], double av[n],
 
             // Remove constraint idel from the active set.
 
+            // qr_delete(n, nact, idel, J, R);
             for (int i = idel; i < nact; i++)
             {
                 uv[i - 1] = uv[i];
@@ -427,5 +430,6 @@ int solve_qp(double G[n * n], double av[n],
         ++(nact);
         uv[nact - 1] = u;
         iact[nact - 1] = iadd;
+        // qr_insert(n, nact, dv, J, R);
     }
 }
