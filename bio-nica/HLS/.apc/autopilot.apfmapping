@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="solve_QP.h" path="E:\MLU2\HLS_BIO_NICA\solve_QP.h"/>
+    <originFiles name="core.cpp" path="E:\MLU2\HLS_BIO_NICA\core.cpp"/>
+  </source>
+  <testbench>
+    <originFiles name="test_core.cpp" path="E:\MLU2\HLS_BIO_NICA\test_core.cpp"/>
+    <originFiles name="data_(10000).h" path="E:\MLU2\HLS_BIO_NICA\data_(10000).h"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

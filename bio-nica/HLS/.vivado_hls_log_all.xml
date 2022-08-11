@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <simLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <simLog>
+        <logs message="Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.&#xD;&#xA;Time: 431865 ns  Iteration: 13  Process: /apatb_DLU_top/AESL_inst_DLU/DLU_faddfsub_32nsbkb_U157/DLU_ap_faddfsub_3_full_dsp_32_u/U0/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/DSP/prcs_opmode_drc  File: E:\Xilinx\Vivado\2019.1\data/vhdl/src/unisims/primitive/DSP48E1.vhd&#xD;&#xA;Note: simulation done!&#xD;&#xA;Time: 432455 ns  Iteration: 1  Process: /apatb_DLU_top/generate_sim_done_proc  File: E:/MLU2/HLS_BIO_NICA/solution1/sim/vhdl/DLU.autotb.vhd&#xD;&#xA;Failure: NORMAL EXIT (note: failure is to force the simulator to stop)&#xD;&#xA;Time: 432455 ns  Iteration: 1  Process: /apatb_DLU_top/generate_sim_done_proc  File: E:/MLU2/HLS_BIO_NICA/solution1/sim/vhdl/DLU.autotb.vhd&#xD;&#xA;$finish called at time : 432455 ns&#xD;&#xA;run: Time (s): cpu = 00:00:01 ; elapsed = 00:02:17 . Memory (MB): peak = 220.957 ; gain = 0.000&#xD;&#xA;## quit" projectName="HLS_BIO_NICA" solutionName="solution1" date="2022-07-10T16:48:25.254+0430" type="Warning"/>
+        <logs message="Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.&#xD;&#xA;Time: 431865 ns  Iteration: 13  Process: /apatb_DLU_top/AESL_inst_DLU/DLU_faddfsub_32nsbkb_U156/DLU_ap_faddfsub_3_full_dsp_32_u/U0/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/DSP/prcs_opmode_drc  File: E:\Xilinx\Vivado\2019.1\data/vhdl/src/unisims/primitive/DSP48E1.vhd" projectName="HLS_BIO_NICA" solutionName="solution1" date="2022-07-10T16:48:16.801+0430" type="Warning"/>
+      </simLog>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

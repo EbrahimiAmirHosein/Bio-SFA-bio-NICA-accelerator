@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="core.cpp" path="E:\bio-SFA\HLS_SampleGn\core.cpp"/>
+  </source>
+  <testbench>
+    <originFiles name="test_core.cpp" path="E:\bio-SFA\HLS_SampleGn\test_core.cpp"/>
+    <originFiles name="data_10k.h" path="E:\bio-SFA\HLS_SampleGn\data_10k.h"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>
